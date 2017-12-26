@@ -1,0 +1,27 @@
+{
+    "name": "yamilovs/sms-bundle",
+    "type": "symfony-bundle",
+    "description": "Sms sending system with different providers",
+    "keywords": [
+        "Sms"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/yamilovs/ColorCaptchaBundle",
+    "authors": [
+        {
+            "name": "Yamilov Stepan",
+            "email": "yamilovs@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "symfony/framework-bundle": "~2.3|~3.0|^4.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Yamilovs\\Bundle\\SmsBundle\\": "src/"
+        }
+    }
+}
