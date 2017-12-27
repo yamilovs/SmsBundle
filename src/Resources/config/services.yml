@@ -1,1 +1,3 @@
 services:
+    Yamilovs\Bundle\SmsBundle\Provider\SmsruProvider:
+        public: false
