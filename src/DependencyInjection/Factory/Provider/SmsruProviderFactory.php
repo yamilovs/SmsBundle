@@ -15,6 +15,14 @@ class SmsruProviderFactory implements ProviderFactoryInterface
             ->replaceArgument(0, $config['api_id'])
             ->replaceArgument(1, $config['from'])
         ;
+        $providerDefinition->addTag(self::SERVICE_TAG, [
+            'provider' => $providerName,
+        ]);
+        $providerId = self::SERVICE_PREFIX.$providerName;
+
+        $containerBuilder->setDefinition($providerId, $providerDefinition);
+
+        return $providerId;
     }
 
     public function getName(): string
