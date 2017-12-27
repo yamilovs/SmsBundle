@@ -5,13 +5,12 @@ namespace Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Yamilovs\Bundle\SmsBundle\Provider\SmsruProvider;
 
 class SmsruProviderFactory implements ProviderFactoryInterface
 {
     public function create(ContainerBuilder $containerBuilder, string $providerName, array $config): string
     {
-        $providerDefinition = new ChildDefinition(SmsruProvider::class);
+        $providerDefinition = new ChildDefinition('yamilovs_sms.prototype.provider.sms_ru');
         $providerDefinition
             ->replaceArgument(0, $config['api_id'])
             ->replaceArgument(1, $config['from'])

@@ -1,3 +1,6 @@
 services:
-    Yamilovs\Bundle\SmsBundle\Provider\SmsruProvider:
+    _defaults:
         public: false
+
+    yamilovs_sms.prototype.provider.sms_ru:
+        class: Yamilovs\Bundle\SmsBundle\Provider\SmsruProvider
