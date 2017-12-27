@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 interface ProviderFactoryInterface
 {
+    const SERVICE_PREFIX = 'yamilovs_sms.provider.';
+    const SERVICE_TAG = 'yamilovs_sms.provider';
+
     public function create(ContainerBuilder $containerBuilder, string $providerName, array $config): string;
 
     /**
