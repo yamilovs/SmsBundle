@@ -14,6 +14,7 @@ class SmsruProviderFactory implements ProviderFactoryInterface
         $providerDefinition
             ->addArgument($config['api_id'])
             ->addArgument($config['from'])
+            ->addArgument($config['test'])
         ;
         $providerDefinition->addTag(self::SERVICE_TAG, [
             'provider' => $providerName,
@@ -36,6 +37,7 @@ class SmsruProviderFactory implements ProviderFactoryInterface
             ->children()
                 ->scalarNode('api_id')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('from')->defaultNull()->end()
+                ->booleanNode('test')->defaultFalse()->end()
             ->end()
         ;
     }
