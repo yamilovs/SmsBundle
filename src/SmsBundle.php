@@ -15,9 +15,13 @@ class SmsBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new ProviderCompilerPass());
+    }
 
-        /** @var SmsExtension $extension */
-        $extension = $container->getExtension(SmsExtension::class);
+    public function getContainerExtension()
+    {
+        $extension = new SmsExtension();
         $extension->addProviderFactory(new SmsruProviderFactory());
+
+        return $extension;
     }
 }

@@ -25,6 +25,11 @@ class SmsExtension extends Extension
         return new Configuration($this->providerFactoryMap);
     }
 
+    public function getAlias()
+    {
+        return 'yamilovs_sms';
+    }
+
     /**
      * {@inheritdoc}
      */
