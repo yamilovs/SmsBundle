@@ -34,6 +34,6 @@ class TestDeliveryCommand extends Command
         $phoneNumber = $input->getArgument('phone-number');
         $message = $input->getArgument('message');
 
-        $output->writeln(sprintf('Phone number: <info>%s</info>. Message: <info>%s</info>', [$phoneNumber, $message]));
+        $output->writeln(sprintf('Phone number: <info>%s</info>. Message: <info>%s</info>', $phoneNumber, $message));
     }
 }
