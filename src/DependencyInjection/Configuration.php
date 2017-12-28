@@ -40,12 +40,11 @@ class Configuration implements ConfigurationInterface
     private function addProvidersSection(ArrayNodeDefinition $nodeDefinition)
     {
         $nodeDefinition
+            ->fixXmlConfig('adapter', 'adapters')
             ->children()
-                ->fixXmlConfig('adapter', 'adapters')
-                ->children()
-                    ->arrayNode('adapters')
-                        ->useAttributeAsKey('name')
-                        ->arrayPrototype()
+                ->arrayNode('adapters')
+                    ->useAttributeAsKey('name')
+                    ->arrayPrototype()
         ;
 
         foreach ($this->providerFactoryMap as $providerName => $providerFactory) {
