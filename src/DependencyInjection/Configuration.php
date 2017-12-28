@@ -39,17 +39,18 @@ class Configuration implements ConfigurationInterface
 
     private function addProvidersSection(ArrayNodeDefinition $nodeDefinition)
     {
-        $nodeDefinition
+        $nd = $nodeDefinition
             ->fixXmlConfig('provider', 'providers')
             ->children()
                 ->arrayNode('providers')
                     ->useAttributeAsKey('name')
                     ->arrayPrototype()
+                        ->performNoDeepMerging()
         ;
 
         foreach ($this->providerFactoryMap as $providerName => $providerFactory) {
             $providerFactory->addConfiguration(
-                $nodeDefinition->children()->arrayNode($providerName)
+                $nd->children()->arrayNode($providerName)
             );
         }
     }
