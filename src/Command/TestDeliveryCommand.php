@@ -6,7 +6,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Yamilovs\Bundle\SmsBundle\Service\ProviderManager;
+use Yamilovs\Bundle\SmsBundle\Sms\Sms;
 
 class TestDeliveryCommand extends Command
 {
@@ -24,6 +26,7 @@ class TestDeliveryCommand extends Command
         $this
             ->setName('yamilovs:sms:delivery:test')
             ->setDescription('Sends an sms message through the selected provider.')
+            ->addArgument('provider-name', InputArgument::REQUIRED)
             ->addArgument('phone-number', InputArgument::REQUIRED)
             ->addArgument('message', InputArgument::REQUIRED)
         ;
@@ -31,9 +34,18 @@ class TestDeliveryCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $io = new SymfonyStyle($input, $output);
+        $providerName = $input->getArgument('provider-name');
         $phoneNumber = $input->getArgument('phone-number');
         $message = $input->getArgument('message');
 
-        $output->writeln(sprintf('Phone number: <info>%s</info>. Message: <info>%s</info>', $phoneNumber, $message));
+        $provider = $this->providerManager->getProvider($providerName);
+        $sms = new Sms($phoneNumber, $message);
+
+        $provider->send($sms);
+
+        if ($sms->isDelivered()) {
+            $io->success(sprintf("Message '%s' was successfully sent to '%s'", $message, $phoneNumber));
+        }
     }
 }
