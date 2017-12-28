@@ -18,7 +18,7 @@ class ProviderManager
 
     public function getProvider(string $providerName): ProviderInterface
     {
-        if (isset($this->providers[$providerName])) {
+        if (!isset($this->providers[$providerName])) {
             throw new \OutOfBoundsException(sprintf('Could not find provider "%s"', $providerName));
         }
 
