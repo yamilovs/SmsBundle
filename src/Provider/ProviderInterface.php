@@ -6,5 +6,5 @@ use Yamilovs\Bundle\SmsBundle\Sms\SmsInterface;
 
 interface ProviderInterface
 {
-    public function send(SmsInterface $sms);
+    public function send(SmsInterface &$sms);
 }
