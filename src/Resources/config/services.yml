@@ -9,3 +9,9 @@ services:
         class: Yamilovs\Bundle\SmsBundle\Service\ProviderManager
 
     Yamilovs\Bundle\SmsBundle\Service\ProviderManager: '@yamilovs_sms.provider.manager'
+
+    yamilovs_sms.command.test_delivery:
+        class: Yamilovs\Bundle\SmsBundle\Command\TestDeliveryCommand
+        arguments: ['@yamilovs_sms.provider.manager']
+        tags:
+            - { name: 'console.command' }
