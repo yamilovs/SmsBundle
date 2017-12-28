@@ -6,9 +6,13 @@ interface SmsInterface
 {
     public function getMessage(): string;
 
-    public function setMessage(string $message): AbstractSms;
+    public function setMessage(string $message): Sms;
 
-    public function getPhone(): string;
+    public function getPhoneNumber(): string;
 
-    public function setPhone(string $phone): AbstractSms;
+    public function setPhoneNumber(string $phone): Sms;
+
+    public function isDelivered();
+
+    public function setIsDelivered(bool $isDelivered): Sms;
 }
