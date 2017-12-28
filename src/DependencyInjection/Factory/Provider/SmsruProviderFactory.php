@@ -12,8 +12,8 @@ class SmsruProviderFactory implements ProviderFactoryInterface
     {
         $providerDefinition = new ChildDefinition('yamilovs_sms.prototype.provider.sms_ru');
         $providerDefinition
-            ->replaceArgument(0, $config['api_id'])
-            ->replaceArgument(1, $config['from'])
+            ->addArgument($config['api_id'])
+            ->addArgument($config['from'])
         ;
         $providerDefinition->addTag(self::SERVICE_TAG, [
             'provider' => $providerName,
