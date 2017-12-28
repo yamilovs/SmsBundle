@@ -40,9 +40,9 @@ class Configuration implements ConfigurationInterface
     private function addProvidersSection(ArrayNodeDefinition $nodeDefinition)
     {
         $nodeDefinition
-            ->fixXmlConfig('adapter', 'adapters')
+            ->fixXmlConfig('provider', 'providers')
             ->children()
-                ->arrayNode('adapters')
+                ->arrayNode('providers')
                     ->useAttributeAsKey('name')
                     ->arrayPrototype()
         ;
