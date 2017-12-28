@@ -6,7 +6,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\ProviderFactoryInterface;
-use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\SmsruProviderFactory;
 
 /**
  * This is the class that validates and merges configuration from your app/config files.
@@ -15,6 +14,16 @@ use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\SmsruProvider
  */
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * @var ProviderFactoryInterface[]
+     */
+    private $providerFactoryMap = [];
+
+    public function __construct(array $providerFactoryMap)
+    {
+        $this->providerFactoryMap = $providerFactoryMap;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -39,21 +48,10 @@ class Configuration implements ConfigurationInterface
                         ->arrayPrototype()
         ;
 
-        /** @var ProviderFactoryInterface $providerFactory */
-        foreach ($this->getProviderFactories() as $providerFactory) {
+        foreach ($this->providerFactoryMap as $providerName => $providerFactory) {
             $providerFactory->addConfiguration(
-                $nodeDefinition->children()->arrayNode($providerFactory->getName())
+                $nodeDefinition->children()->arrayNode($providerName)
             );
         }
-    }
-
-    /**
-     * @return ProviderFactoryInterface[]
-     */
-    private function getProviderFactories(): array
-    {
-        return [
-            new SmsruProviderFactory(),
-        ];
     }
 }
