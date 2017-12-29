@@ -6,7 +6,7 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class SmsruProviderFactory implements ProviderFactoryInterface
+class SmsRuProviderFactory implements ProviderFactoryInterface
 {
     public function create(ContainerBuilder $containerBuilder, string $providerName, array $config): string
     {

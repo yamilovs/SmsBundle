@@ -3,7 +3,7 @@ services:
         public: false
 
     yamilovs_sms.prototype.provider.sms_ru:
-        class: Yamilovs\Bundle\SmsBundle\Provider\SmsruProvider
+        class: Yamilovs\Bundle\SmsBundle\Provider\SmsRuProvider
 
     yamilovs_sms.prototype.provider.sms_aero:
         class: Yamilovs\Bundle\SmsBundle\Provider\SmsAeroProvider

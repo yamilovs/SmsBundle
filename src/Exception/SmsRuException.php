@@ -2,7 +2,7 @@
 
 namespace Yamilovs\Bundle\SmsBundle\Exception;
 
-class SmsruException extends \Exception
+class SmsRuException extends \Exception
 {
     /**
      * Map of error messages.

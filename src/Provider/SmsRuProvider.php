@@ -3,10 +3,10 @@
 namespace Yamilovs\Bundle\SmsBundle\Provider;
 
 use GuzzleHttp\Client;
-use Yamilovs\Bundle\SmsBundle\Exception\SmsruException;
+use Yamilovs\Bundle\SmsBundle\Exception\SmsRuException;
 use Yamilovs\Bundle\SmsBundle\Sms\SmsInterface;
 
-class SmsruProvider implements ProviderInterface
+class SmsRuProvider implements ProviderInterface
 {
     const BASE_URI = 'https://sms.ru';
     const SMS_SEND_URI = '/sms/send';
@@ -53,7 +53,7 @@ class SmsruProvider implements ProviderInterface
         $responseCode = (int) $response->getBody()->read(3);
 
         if ($responseCode != 100) {
-            throw new SmsruException($responseCode);
+            throw new SmsRuException($responseCode);
         }
 
         $sms->setIsDelivered(true);
