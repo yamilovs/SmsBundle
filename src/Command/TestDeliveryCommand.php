@@ -38,13 +38,9 @@ class TestDeliveryCommand extends Command
         $providerName = $input->getArgument('provider-name');
         $phoneNumber = $input->getArgument('phone-number');
         $message = $input->getArgument('message');
-
         $provider = $this->providerManager->getProvider($providerName);
-        $sms = new Sms($phoneNumber, $message);
 
-        $provider->send($sms);
-
-        if ($sms->isDelivered()) {
+        if ($provider->send(new Sms($phoneNumber, $message))) {
             $io->success(sprintf("Message '%s' was successfully sent to '%s'", $message, $phoneNumber));
         }
     }
