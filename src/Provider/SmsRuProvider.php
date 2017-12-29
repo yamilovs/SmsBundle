@@ -35,7 +35,7 @@ class SmsRuProvider implements ProviderInterface
 
     public function send(SmsInterface $sms)
     {
-        $postData = [
+        $data = [
             'form_params' => [
                 'api_id' => $this->apiId,
                 'from' => $this->from,
@@ -45,11 +45,11 @@ class SmsRuProvider implements ProviderInterface
         ];
 
         if ($this->test) {
-            $postData[0]['test'] = 1;
+            $data['form_params']['test'] = 1;
         }
 
         $client = new Client(['base_uri' => self::BASE_URI, 'timeout' => 10,]);
-        $response = $client->post(self::SMS_SEND_URI, $postData);
+        $response = $client->post(self::SMS_SEND_URI, $data);
         $responseCode = (int) $response->getBody()->read(3);
 
         if ($responseCode != 100) {
