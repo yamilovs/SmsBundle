@@ -5,7 +5,7 @@ namespace Yamilovs\Bundle\SmsBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\ProviderFactoryInterface;
+use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\AbstractProviderFactory;
 use Yamilovs\Bundle\SmsBundle\Service\ProviderManager;
 
 class ProviderCompilerPass implements CompilerPassInterface
@@ -17,7 +17,7 @@ class ProviderCompilerPass implements CompilerPassInterface
         }
 
         $manager = $container->findDefinition(ProviderManager::class);
-        $providers = $container->findTaggedServiceIds(ProviderFactoryInterface::SERVICE_TAG);
+        $providers = $container->findTaggedServiceIds(AbstractProviderFactory::SERVICE_TAG);
 
         foreach ($providers as $id => $tags) {
             foreach ($tags as $attribute) {

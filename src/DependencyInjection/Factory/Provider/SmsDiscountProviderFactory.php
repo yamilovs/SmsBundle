@@ -6,9 +6,9 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class SmsDiscountProviderFactory implements ProviderFactoryInterface
+class SmsDiscountProviderFactory extends AbstractProviderFactory
 {
-    public function create(ContainerBuilder $containerBuilder, string $providerName, array $config): string
+    public function create(ContainerBuilder $containerBuilder, string $providerName, array $config): void
     {
         $providerDefinition = new ChildDefinition('yamilovs_sms.prototype.provider.sms_discount');
         $providerDefinition
@@ -17,14 +17,8 @@ class SmsDiscountProviderFactory implements ProviderFactoryInterface
             ->addArgument($config['sender'])
             ->addArgument($config['flash'])
         ;
-        $providerDefinition->addTag(self::SERVICE_TAG, [
-            'provider' => $providerName,
-        ]);
-        $providerId = self::SERVICE_PREFIX.$providerName;
 
-        $containerBuilder->setDefinition($providerId, $providerDefinition);
-
-        return $providerId;
+        $this->setProviderDefinition($containerBuilder, $providerName, $providerDefinition);
     }
 
     public function getName(): string

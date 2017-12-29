@@ -6,16 +6,16 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\ProviderFactoryInterface;
+use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\AbstractProviderFactory;
 
 class SmsExtension extends Extension
 {
     /**
-     * @var ProviderFactoryInterface[]
+     * @var AbstractProviderFactory[]
      */
     private $providerFactoryMap = [];
 
-    public function addProviderFactory(ProviderFactoryInterface $providerFactory)
+    public function addProviderFactory(AbstractProviderFactory $providerFactory)
     {
         $this->providerFactoryMap[$providerFactory->getName()] = $providerFactory;
     }
