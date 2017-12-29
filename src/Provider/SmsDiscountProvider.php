@@ -39,7 +39,7 @@ class SmsDiscountProvider implements ProviderInterface
         $this->flash = $flash;
     }
 
-    public function send(SmsInterface &$sms)
+    public function send(SmsInterface $sms)
     {
         $data = [
             'auth' => [
@@ -68,6 +68,6 @@ class SmsDiscountProvider implements ProviderInterface
             throw new SmsDiscountException($responseData[1]);
         }
 
-        $sms->setIsDelivered(true);
+        return true;
     }
 }

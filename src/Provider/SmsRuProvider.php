@@ -33,7 +33,7 @@ class SmsRuProvider implements ProviderInterface
         $this->test = $test;
     }
 
-    public function send(SmsInterface &$sms)
+    public function send(SmsInterface $sms)
     {
         $postData = [
             'form_params' => [
@@ -56,6 +56,6 @@ class SmsRuProvider implements ProviderInterface
             throw new SmsRuException($responseCode);
         }
 
-        $sms->setIsDelivered(true);
+        return true;
     }
 }

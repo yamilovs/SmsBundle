@@ -36,7 +36,7 @@ class SmsAeroProvider implements ProviderInterface
         $this->channel = $channel;
     }
 
-    public function send(SmsInterface &$sms)
+    public function send(SmsInterface $sms)
     {
         $data = [
             'headers' => [
@@ -62,6 +62,6 @@ class SmsAeroProvider implements ProviderInterface
             throw new SmsAeroException(json_encode($jsonResponse));
         }
 
-        $sms->setIsDelivered(true);
+        return true;
     }
 }
