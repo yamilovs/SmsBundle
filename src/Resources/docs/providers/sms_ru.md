@@ -1,4 +1,4 @@
-# SmsRu
+# Sms Ru
 
 Provider to connect with [SmsRu](https://sms.ru) service.
 
