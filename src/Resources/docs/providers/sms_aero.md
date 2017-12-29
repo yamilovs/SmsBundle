@@ -2,7 +2,6 @@
 
 Provider to connect with [Sms Aero](https://smsaero.ru/) service.
 
-
 ## Parameters
 
  * `user` Your registration email *(required)*

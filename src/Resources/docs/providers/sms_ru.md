@@ -2,7 +2,6 @@
 
 Provider to connect with [Sms Ru](https://sms.ru) service.
 
-
 ## Parameters
 
  * `api_id` Your API key *(required)*
