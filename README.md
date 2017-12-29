@@ -18,6 +18,7 @@ You can define as many provider configurations as you want. Available providers 
  
  * [Sms Ru](src/Resources/docs/providers/sms_ru.md)
  * [Sms Aero](src/Resources/docs/providers/sms_aero.md)
+ * [Sms Discount](src/Resources/docs/providers/sms_discount.md)
 
 # Usage
 

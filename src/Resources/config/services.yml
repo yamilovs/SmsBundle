@@ -8,6 +8,9 @@ services:
     yamilovs_sms.prototype.provider.sms_aero:
         class: Yamilovs\Bundle\SmsBundle\Provider\SmsAeroProvider
 
+    yamilovs_sms.prototype.provider.sms_discount:
+        class: Yamilovs\Bundle\SmsBundle\Provider\SmsDiscountProvider
+
     yamilovs_sms.provider.manager:
         class: Yamilovs\Bundle\SmsBundle\Service\ProviderManager
 
