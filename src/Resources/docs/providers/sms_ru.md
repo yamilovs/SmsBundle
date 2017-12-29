@@ -1,6 +1,6 @@
 # Sms Ru
 
-Provider to connect with [SmsRu](https://sms.ru) service.
+Provider to connect with [Sms Ru](https://sms.ru) service.
 
 
 ## Parameters
