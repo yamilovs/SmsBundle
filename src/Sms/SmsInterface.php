@@ -11,8 +11,4 @@ interface SmsInterface
     public function getPhoneNumber(): string;
 
     public function setPhoneNumber(string $phone): Sms;
-
-    public function isDelivered();
-
-    public function setIsDelivered(bool $isDelivered): Sms;
 }

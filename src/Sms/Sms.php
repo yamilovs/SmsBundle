@@ -14,11 +14,6 @@ class Sms implements SmsInterface
      */
     private $message;
 
-    /**
-     * @var bool
-     */
-    private $isDelivered = false;
-
     public function __construct(string $phoneNumber = null, string $message = null)
     {
         $this->setPhoneNumber($phoneNumber);
@@ -61,26 +56,6 @@ class Sms implements SmsInterface
     public function setPhoneNumber(string $phoneNumber): Sms
     {
         $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDelivered(): bool
-    {
-        return $this->isDelivered;
-    }
-
-    /**
-     * @param bool $isDelivered
-     *
-     * @return Sms
-     */
-    public function setIsDelivered(bool $isDelivered): Sms
-    {
-        $this->isDelivered = $isDelivered;
 
         return $this;
     }
