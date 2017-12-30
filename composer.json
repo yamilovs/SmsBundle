@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Sms sending system with different providers",
     "keywords": [
-        "Sms"
+        "Sms", "sms.ru", "smsaero.ru", "iqsms.ru", "smsc.ru"
     ],
     "license": "MIT",
     "homepage": "https://github.com/yamilovs/ColorCaptchaBundle",
