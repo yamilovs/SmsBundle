@@ -14,10 +14,16 @@ class Sms implements SmsInterface
      */
     private $message;
 
-    public function __construct(string $phoneNumber = null, string $message = null)
+    /**
+     * @var \DateTime
+     */
+    private $dateTime;
+
+    public function __construct(string $phoneNumber = null, string $message = null, \DateTime $dateTime = null)
     {
         $this->setPhoneNumber($phoneNumber);
         $this->setMessage($message);
+        $this->setDateTime(($dateTime) ?: new \DateTime());
     }
 
     /**
@@ -56,6 +62,26 @@ class Sms implements SmsInterface
     public function setPhoneNumber(string $phoneNumber): Sms
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateTime(): \DateTime
+    {
+        return $this->dateTime;
+    }
+
+    /**
+     * @param \DateTime $dateTime
+     *
+     * @return Sms
+     */
+    public function setDateTime(\DateTime $dateTime): Sms
+    {
+        $this->dateTime = $dateTime;
 
         return $this;
     }
