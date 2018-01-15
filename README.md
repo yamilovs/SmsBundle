@@ -1,5 +1,3 @@
-Warning. Bundle in development state.
-
 # SmsBundle
 
 This bundle will help you to implement an sms messages to your project
@@ -44,6 +42,42 @@ class FooController extends Controller
         $provider->send($sms);
     }
 }
+```
+
+If you want to schedule an sms delivery
+
+```php
+<?php
+// src/Controller/FooController.php
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Yamilovs\Bundle\SmsBundle\Service\ProviderManager;
+use Yamilovs\Bundle\SmsBundle\Sms\Sms;
+
+class FooController extends Controller
+{
+    public function barAction(ProviderManager $providerManager)
+    {
+        // Your selected sms provider
+        $provider = $providerManager->getProvider('your_provider_name');
+        
+        // Date of sms delivery
+        $worldCupStartDate = (new \DateTime("2018:06:30 00:00:00"))->setTimezone(new \DateTimeZone('Europe/London'));
+        $remindDate = (new \DateTime())->add(new \DateInterval('PT5M'));
+        
+        // Create new delayed sms
+        $worldCupStartSms = new Sms('+12345678900', '2018 FIFA World Cup started!', $worldCupStartDate);
+        $remindSms = new Sms('+12345678900', 'I will remind you of football', $remindDate);
+        
+        // Send delayed delivery to provider
+        $provider->send($worldCupStartSms); // will be sent at 2018:06:30 00:00:00
+        $provider->send($remindSms); // will be sent after 5 minutes
+    }
+}
+
+
+
 ```
 
 # Tips
