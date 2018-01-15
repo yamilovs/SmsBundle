@@ -25,7 +25,7 @@ class TestDeliveryCommand extends Command
     {
         $this
             ->setName('yamilovs:sms:delivery:test')
-            ->setDescription('Sends an sms message through the selected provider.')
+            ->setDescription('Instant delivery an sms message through the selected provider.')
             ->addArgument('provider-name', InputArgument::REQUIRED)
             ->addArgument('phone-number', InputArgument::REQUIRED)
             ->addArgument('message', InputArgument::REQUIRED)
