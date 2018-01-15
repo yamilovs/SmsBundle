@@ -51,6 +51,7 @@ class SmsAeroProvider implements ProviderInterface
                 'channel' => $this->channel,
                 'number' => $sms->getPhoneNumber(),
                 'text' => $sms->getMessage(),
+                'dateSend' => $sms->getDateTime()->getTimestamp(),
             ]
         ];
 

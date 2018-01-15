@@ -41,6 +41,7 @@ class SmsRuProvider implements ProviderInterface
                 'from' => $this->from,
                 'to' => $sms->getPhoneNumber(),
                 'msg' => $sms->getMessage(),
+                'time' => $sms->getDateTime()->getTimestamp(),
             ]
         ];
 

@@ -59,6 +59,7 @@ class SmsCenterProvider implements ProviderInterface
                 'psw' => mb_strtolower(md5($this->password)),
                 'phones' => $sms->getPhoneNumber(),
                 'mes' => $sms->getMessage(),
+                'time' => '0'.$sms->getDateTime()->getTimestamp(), // Use timestamp time format
                 'fmt' => self::RESPONSE_FORMAT['JSON'], // Get response in json format
                 'charset' => self::MESSAGE_CHARSET['UTF-8'], // Use unicode charset in message text
             ]

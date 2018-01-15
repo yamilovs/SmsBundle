@@ -49,6 +49,7 @@ class SmsDiscountProvider implements ProviderInterface
             'form_params' => [
                 'phone' => $sms->getPhoneNumber(),
                 'text' => $sms->getMessage(),
+                'scheduleTime' => $sms->getDateTime()->format(\DateTime::RFC3339)
             ]
         ];
 
