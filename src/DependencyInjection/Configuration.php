@@ -43,7 +43,6 @@ class Configuration implements ConfigurationInterface
             ->fixXmlConfig('provider', 'providers')
             ->children()
                 ->arrayNode('providers')
-                    ->useAttributeAsKey('name')
                     ->arrayPrototype()
                         ->performNoDeepMerging()
         ;
