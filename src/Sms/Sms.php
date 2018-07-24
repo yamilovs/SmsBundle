@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yamilovs\Bundle\SmsBundle\Sms;
 
 class Sms implements SmsInterface
@@ -23,7 +25,7 @@ class Sms implements SmsInterface
     {
         $this->setPhoneNumber($phoneNumber);
         $this->setMessage($message);
-        $this->setDateTime(($dateTime) ?: new \DateTime());
+        $this->setDateTime(($dateTime) ?? new \DateTime());
     }
 
     /**
@@ -39,7 +41,7 @@ class Sms implements SmsInterface
      *
      * @return Sms
      */
-    public function setMessage(string $message): Sms
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
@@ -59,7 +61,7 @@ class Sms implements SmsInterface
      *
      * @return Sms
      */
-    public function setPhoneNumber(string $phoneNumber): Sms
+    public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
 
@@ -79,7 +81,7 @@ class Sms implements SmsInterface
      *
      * @return Sms
      */
-    public function setDateTime(\DateTime $dateTime): Sms
+    public function setDateTime(\DateTime $dateTime): self
     {
         $this->dateTime = $dateTime;
 
