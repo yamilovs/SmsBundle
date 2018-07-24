@@ -19,11 +19,20 @@
         "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
-        "symfony/console": "^4.0"
+        "symfony/console": "^4.0",
+        "phpunit/phpunit": "^7.2"
     },
     "autoload": {
         "psr-4": {
             "Yamilovs\\Bundle\\SmsBundle\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "src/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yamilovs\\Bundle\\SmsBundle\\Tests\\": "src/Tests/"
         }
     }
 }
