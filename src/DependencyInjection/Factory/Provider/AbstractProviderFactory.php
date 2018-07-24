@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -8,8 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 abstract class AbstractProviderFactory
 {
-    const SERVICE_PREFIX = 'yamilovs_sms.provider.';
-    const SERVICE_TAG = 'yamilovs_sms.provider';
+    private const SERVICE_PREFIX = 'yamilovs_sms.provider.';
+    public const SERVICE_TAG = 'yamilovs_sms.provider';
 
     abstract public function create(ContainerBuilder $containerBuilder, string $providerName, array $config): void;
 
