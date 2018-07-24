@@ -21,7 +21,7 @@ class Sms implements SmsInterface
      */
     private $dateTime;
 
-    public function __construct(string $phoneNumber = null, string $message = null, \DateTime $dateTime = null)
+    public function __construct(string $phoneNumber, string $message, \DateTime $dateTime = null)
     {
         $this->setPhoneNumber($phoneNumber);
         $this->setMessage($message);
