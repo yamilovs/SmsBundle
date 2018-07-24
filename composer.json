@@ -6,7 +6,7 @@
         "Sms", "sms.ru", "smsaero.ru", "iqsms.ru", "smsc.ru"
     ],
     "license": "MIT",
-    "homepage": "https://github.com/yamilovs/ColorCaptchaBundle",
+    "homepage": "https://github.com/yamilovs/SmsBundle",
     "authors": [
         {
             "name": "Yamilov Stepan",
