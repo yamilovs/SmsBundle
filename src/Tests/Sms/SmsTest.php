@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Yamilovs\Bundle\SmsBundle\Tests;
+namespace Yamilovs\Bundle\SmsBundle\Tests\Sms;
 
 use PHPUnit\Framework\TestCase;
 use Yamilovs\Bundle\SmsBundle\Sms\Sms;
