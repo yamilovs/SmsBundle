@@ -10,8 +10,8 @@
     <whitelist>
         <directory>src</directory>
         <exclude>
-            <directory>Resources</directory>
-            <directory>Tests</directory>
+            <directory>src/Resources</directory>
+            <directory>src/Tests</directory>
         </exclude>
     </whitelist>
 </filter>
