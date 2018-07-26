@@ -36,4 +36,12 @@ class SmsAeroProviderFactoryTest extends TestCase
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['sign']);
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['channel']);
     }
+
+    public function testThatDefinitionHasOrderedRequiredArguments(): void
+    {
+        $arg = ['user', 'api_key', 'sign', 'channel'];
+        $def = (new SmsAeroProviderFactory())->getDefinition(array_flip($arg));
+
+        $this->assertEquals(array_keys($arg), $def->getArguments());
+    }
 }
