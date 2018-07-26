@@ -8,10 +8,11 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition;
 use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\SmsCenterProviderFactory;
+use Yamilovs\Bundle\SmsBundle\Provider\SmsCenterProvider;
 
 class SmsCenterProviderFactoryTest extends TestCase
 {
-    use ProviderConfigurationTestTrait;
+    use ProviderTestTrait;
 
     public function testGetCorrectName(): void
     {
@@ -20,7 +21,7 @@ class SmsCenterProviderFactoryTest extends TestCase
 
     public function testConfigurationHasAllRequiredParameters(): void
     {
-        $def = $this->getProviderDefinitions(new SmsCenterProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsCenterProviderFactory());
 
         $this->assertArrayHasKey('login', $def);
         $this->assertArrayHasKey('password', $def);
@@ -30,7 +31,7 @@ class SmsCenterProviderFactoryTest extends TestCase
 
     public function testConfigurationHasCorrectTypes(): void
     {
-        $def = $this->getProviderDefinitions(new SmsCenterProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsCenterProviderFactory());
 
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['login']);
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['password']);
@@ -38,11 +39,13 @@ class SmsCenterProviderFactoryTest extends TestCase
         $this->assertInstanceOf(BooleanNodeDefinition::class, $def['flash']);
     }
 
-    public function testThatDefinitionHasOrderedRequiredArguments(): void
+    public function testThatDefinitionHasAllRequiredMethods(): void
     {
-        $arg = ['login', 'password', 'sender', 'flash'];
-        $def = (new SmsCenterProviderFactory())->getDefinition(array_flip($arg));
+        $prototypeMethods = $this->getPrototypeMethods(new SmsCenterProvider());
+        $calls = $this->getDefinitionMethodCalls(new SmsCenterProviderFactory(), ['login', 'password', 'sender', 'flash']);
 
-        $this->assertEquals(array_keys($arg), $def->getArguments());
+        foreach ($calls as $call) {
+            $this->assertContains($call, $prototypeMethods);
+        }
     }
 }

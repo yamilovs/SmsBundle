@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace Yamilovs\Bundle\SmsBundle\Tests\DependencyInjection\Factory\Provider;
 
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
 use Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition;
+use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\ProviderFactoryInterface;
 use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\SmsRuProviderFactory;
+use Yamilovs\Bundle\SmsBundle\Provider\ProviderInterface;
+use Yamilovs\Bundle\SmsBundle\Provider\SmsRuProvider;
 
 class SmsRuProviderFactoryTest extends TestCase
 {
-    use ProviderConfigurationTestTrait;
+    use ProviderTestTrait;
 
     public function testGetCorrectName(): void
     {
@@ -20,7 +25,7 @@ class SmsRuProviderFactoryTest extends TestCase
 
     public function testConfigurationHasAllRequiredParameters(): void
     {
-        $def = $this->getProviderDefinitions(new SmsRuProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsRuProviderFactory());
 
         $this->assertArrayHasKey('api_id', $def);
         $this->assertArrayHasKey('from', $def);
@@ -29,18 +34,20 @@ class SmsRuProviderFactoryTest extends TestCase
 
     public function testConfigurationHasCorrectTypes(): void
     {
-        $def = $this->getProviderDefinitions(new SmsRuProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsRuProviderFactory());
 
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['api_id']);
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['from']);
         $this->assertInstanceOf(BooleanNodeDefinition::class, $def['test']);
     }
 
-    public function testThatDefinitionHasOrderedRequiredArguments(): void
+    public function testThatDefinitionHasAllRequiredMethods(): void
     {
-        $arg = ['api_id', 'from', 'test'];
-        $def = (new SmsRuProviderFactory())->getDefinition(array_flip($arg));
+        $prototypeMethods = $this->getPrototypeMethods(new SmsRuProvider());
+        $calls = $this->getDefinitionMethodCalls(new SmsRuProviderFactory(), ['api_id', 'from', 'test']);
 
-        $this->assertEquals(array_keys($arg), $def->getArguments());
+        foreach ($calls as $call) {
+            $this->assertContains($call, $prototypeMethods);
+        }
     }
 }
