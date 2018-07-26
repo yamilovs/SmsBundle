@@ -31,12 +31,52 @@ class SmsDiscountProvider implements ProviderInterface
      */
     private $flash;
 
-    public function __construct(string $login, string $password, ?string $sender, bool $flash)
+    /**
+     * @param string $login
+     *
+     * @return SmsDiscountProvider
+     */
+    public function setLogin(string $login): self
     {
         $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     *
+     * @return SmsDiscountProvider
+     */
+    public function setPassword(string $password): self
+    {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @param null|string $sender
+     *
+     * @return SmsDiscountProvider
+     */
+    public function setSender(?string $sender): self
+    {
         $this->sender = $sender;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $flash
+     *
+     * @return SmsDiscountProvider
+     */
+    public function setFlash(bool $flash): self
+    {
         $this->flash = $flash;
+
+        return $this;
     }
 
     public function send(SmsInterface $sms)

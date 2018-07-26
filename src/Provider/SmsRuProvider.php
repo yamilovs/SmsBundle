@@ -26,11 +26,40 @@ class SmsRuProvider implements ProviderInterface
      */
     private $test;
 
-    public function __construct(string $apiId, string $from, bool $test)
+    /**
+     * @param string $apiId
+     *
+     * @return SmsRuProvider
+     */
+    public function setApiId(string $apiId): self
     {
         $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $from
+     *
+     * @return SmsRuProvider
+     */
+    public function setFrom(string $from): self
+    {
         $this->from = $from;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $test
+     *
+     * @return SmsRuProvider
+     */
+    public function setTest(bool $test): self
+    {
         $this->test = $test;
+
+        return $this;
     }
 
     public function send(SmsInterface $sms)

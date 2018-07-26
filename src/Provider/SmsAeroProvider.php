@@ -28,12 +28,52 @@ class SmsAeroProvider implements ProviderInterface
      */
     private $channel;
 
-    public function __construct(string $user, string $apiKey, string $sign, string $channel)
+    /**
+     * @param string $user
+     *
+     * @return SmsAeroProvider
+     */
+    public function setUser(string $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param string $apiKey
+     *
+     * @return SmsAeroProvider
+     */
+    public function setApiKey(string $apiKey): self
+    {
         $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * @param string $sign
+     *
+     * @return SmsAeroProvider
+     */
+    public function setSign(string $sign): self
+    {
         $this->sign = $sign;
+
+        return $this;
+    }
+
+    /**
+     * @param string $channel
+     *
+     * @return SmsAeroProvider
+     */
+    public function setChannel(string $channel): self
+    {
         $this->channel = $channel;
+
+        return $this;
     }
 
     public function send(SmsInterface $sms)
