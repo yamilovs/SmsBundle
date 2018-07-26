@@ -4,29 +4,25 @@ namespace Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ChildDefinition;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SmsAeroProviderFactory extends AbstractProviderFactory
 {
-    public function create(ContainerBuilder $containerBuilder, string $providerName, array $config): void
-    {
-        $providerDefinition = new ChildDefinition('yamilovs_sms.prototype.provider.sms_aero');
-        $providerDefinition
-            ->addArgument($config['user'])
-            ->addArgument($config['api_key'])
-            ->addArgument($config['sign'])
-            ->addArgument($config['channel'])
-        ;
-
-        $this->setProviderDefinition($containerBuilder, $providerName, $providerDefinition);
-    }
-
     public function getName(): string
     {
         return 'sms_aero';
     }
 
-    public function addConfiguration(ArrayNodeDefinition $nodeDefinition): void
+    public function getDefinition(array $config): ChildDefinition
+    {
+        return (new ChildDefinition('yamilovs_sms.prototype.provider.sms_aero'))
+            ->addArgument($config['user'])
+            ->addArgument($config['api_key'])
+            ->addArgument($config['sign'])
+            ->addArgument($config['channel'])
+        ;
+    }
+
+    public function buildConfiguration(ArrayNodeDefinition $nodeDefinition): void
     {
         $nodeDefinition
             ->children()

@@ -39,4 +39,12 @@ class SmsDiscountProviderFactoryTest extends TestCase
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['sender']);
         $this->assertInstanceOf(BooleanNodeDefinition::class, $def['flash']);
     }
+
+    public function testThatDefinitionHasOrderedRequiredArguments(): void
+    {
+        $arg = ['login', 'password', 'sender', 'flash'];
+        $def = (new SmsDiscountProviderFactory())->getDefinition(array_flip($arg));
+
+        $this->assertEquals(array_keys($arg), $def->getArguments());
+    }
 }

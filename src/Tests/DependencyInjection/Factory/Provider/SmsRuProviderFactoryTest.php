@@ -35,4 +35,12 @@ class SmsRuProviderFactoryTest extends TestCase
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['from']);
         $this->assertInstanceOf(BooleanNodeDefinition::class, $def['test']);
     }
+
+    public function testThatDefinitionHasOrderedRequiredArguments(): void
+    {
+        $arg = ['api_id', 'from', 'test'];
+        $def = (new SmsRuProviderFactory())->getDefinition(array_flip($arg));
+
+        $this->assertEquals(array_keys($arg), $def->getArguments());
+    }
 }
