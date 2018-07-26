@@ -14,11 +14,13 @@ class SmsRuProviderFactory extends AbstractProviderFactory
 
     public function getDefinition(array $config): ChildDefinition
     {
-        return (new ChildDefinition('yamilovs_sms.prototype.provider.sms_ru'))
-            ->addArgument($config['api_id'])
-            ->addArgument($config['from'])
-            ->addArgument($config['test'])
+        $ch = (new ChildDefinition('yamilovs_sms.prototype.provider.sms_ru'))
+            ->addMethodCall('setApiId', [$config['api_id']])
+            ->addMethodCall('setFrom', [$config['from']])
+            ->addMethodCall('setTest', [$config['test']])
         ;
+
+        return $ch;
     }
 
     public function buildConfiguration(ArrayNodeDefinition $nodeDefinition): void
