@@ -15,10 +15,10 @@ class SmsDiscountProviderFactory extends AbstractProviderFactory
     public function getDefinition(array $config): ChildDefinition
     {
         return (new ChildDefinition('yamilovs_sms.prototype.provider.sms_discount'))
-            ->addArgument($config['login'])
-            ->addArgument($config['password'])
-            ->addArgument($config['sender'])
-            ->addArgument($config['flash'])
+            ->addMethodCall('setLogin', [$config['login']])
+            ->addMethodCall('setPassword', [$config['password']])
+            ->addMethodCall('setSender', [$config['sender']])
+            ->addMethodCall('setFlash', [$config['flash']])
         ;
     }
 

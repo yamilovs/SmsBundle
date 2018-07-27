@@ -43,12 +43,52 @@ class SmsCenterProvider implements ProviderInterface
      */
     private $flash;
 
-    public function __construct(string $login, string $password, ?string $sender, bool $flash)
+    /**
+     * @param string $login
+     *
+     * @return SmsCenterProvider
+     */
+    public function setLogin(string $login): self
     {
         $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     *
+     * @return SmsCenterProvider
+     */
+    public function setPassword(string $password): self
+    {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @param null|string $sender
+     *
+     * @return SmsCenterProvider
+     */
+    public function setSender(?string $sender): self
+    {
         $this->sender = $sender;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $flash
+     *
+     * @return SmsCenterProvider
+     */
+    public function setFlash(bool $flash): self
+    {
         $this->flash = $flash;
+
+        return $this;
     }
 
     public function send(SmsInterface $sms)

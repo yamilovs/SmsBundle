@@ -13,7 +13,7 @@ use Yamilovs\Bundle\SmsBundle\Provider\SmsDiscountProvider;
 
 class SmsDiscountProviderFactoryTest extends TestCase
 {
-    use ProviderConfigurationTestTrait;
+    use ProviderTestTrait;
 
     public function testGetCorrectName(): void
     {
@@ -22,7 +22,7 @@ class SmsDiscountProviderFactoryTest extends TestCase
 
     public function testConfigurationHasAllRequiredParameters(): void
     {
-        $def = $this->getProviderDefinitions(new SmsDiscountProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsDiscountProviderFactory());
 
         $this->assertArrayHasKey('login', $def);
         $this->assertArrayHasKey('password', $def);
@@ -32,7 +32,7 @@ class SmsDiscountProviderFactoryTest extends TestCase
 
     public function testConfigurationHasCorrectTypes(): void
     {
-        $def = $this->getProviderDefinitions(new SmsDiscountProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsDiscountProviderFactory());
 
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['login']);
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['password']);
@@ -40,11 +40,13 @@ class SmsDiscountProviderFactoryTest extends TestCase
         $this->assertInstanceOf(BooleanNodeDefinition::class, $def['flash']);
     }
 
-    public function testThatDefinitionHasOrderedRequiredArguments(): void
+    public function testThatDefinitionHasAllRequiredMethods(): void
     {
-        $arg = ['login', 'password', 'sender', 'flash'];
-        $def = (new SmsDiscountProviderFactory())->getDefinition(array_flip($arg));
+        $prototypeMethods = $this->getPrototypeMethods(new SmsDiscountProvider());
+        $calls = $this->getDefinitionMethodCalls(new SmsDiscountProviderFactory(), ['login', 'password', 'sender', 'flash']);
 
-        $this->assertEquals(array_keys($arg), $def->getArguments());
+        foreach ($calls as $call) {
+            $this->assertContains($call, $prototypeMethods);
+        }
     }
 }

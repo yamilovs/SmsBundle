@@ -15,10 +15,10 @@ class SmsAeroProviderFactory extends AbstractProviderFactory
     public function getDefinition(array $config): ChildDefinition
     {
         return (new ChildDefinition('yamilovs_sms.prototype.provider.sms_aero'))
-            ->addArgument($config['user'])
-            ->addArgument($config['api_key'])
-            ->addArgument($config['sign'])
-            ->addArgument($config['channel'])
+            ->addMethodCall('setUser', [$config['user']])
+            ->addMethodCall('setApiKey', [$config['api_key']])
+            ->addMethodCall('setSign', [$config['sign']])
+            ->addMethodCall('setChannel', [$config['channel']])
         ;
     }
 

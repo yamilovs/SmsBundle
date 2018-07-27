@@ -7,10 +7,11 @@ namespace Yamilovs\Bundle\SmsBundle\Tests\DependencyInjection\Factory\Provider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition;
 use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\SmsAeroProviderFactory;
+use Yamilovs\Bundle\SmsBundle\Provider\SmsAeroProvider;
 
 class SmsAeroProviderFactoryTest extends TestCase
 {
-    use ProviderConfigurationTestTrait;
+    use ProviderTestTrait;
 
     public function testGetCorrectName(): void
     {
@@ -19,7 +20,7 @@ class SmsAeroProviderFactoryTest extends TestCase
 
     public function testConfigurationHasAllRequiredParameters(): void
     {
-        $def = $this->getProviderDefinitions(new SmsAeroProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsAeroProviderFactory());
 
         $this->assertArrayHasKey('user', $def);
         $this->assertArrayHasKey('api_key', $def);
@@ -29,7 +30,7 @@ class SmsAeroProviderFactoryTest extends TestCase
 
     public function testConfigurationHasCorrectTypes(): void
     {
-        $def = $this->getProviderDefinitions(new SmsAeroProviderFactory());
+        $def = $this->getFactoryConfiguration(new SmsAeroProviderFactory());
 
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['user']);
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['api_key']);
@@ -37,11 +38,13 @@ class SmsAeroProviderFactoryTest extends TestCase
         $this->assertInstanceOf(ScalarNodeDefinition::class, $def['channel']);
     }
 
-    public function testThatDefinitionHasOrderedRequiredArguments(): void
+    public function testThatDefinitionHasAllRequiredMethods(): void
     {
-        $arg = ['user', 'api_key', 'sign', 'channel'];
-        $def = (new SmsAeroProviderFactory())->getDefinition(array_flip($arg));
+        $prototypeMethods = $this->getPrototypeMethods(new SmsAeroProvider());
+        $calls = $this->getDefinitionMethodCalls(new SmsAeroProviderFactory(), ['user', 'api_key', 'sign', 'channel']);
 
-        $this->assertEquals(array_keys($arg), $def->getArguments());
+        foreach ($calls as $call) {
+            $this->assertContains($call, $prototypeMethods);
+        }
     }
 }
