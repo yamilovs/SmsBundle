@@ -32,7 +32,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yamilovs\\Bundle\\SmsBundle\\Tests\\": "src/Tests/"
+            "Yamilovs\\Bundle\\SmsBundle\\Tests\\": "tests/"
         }
     }
 }
