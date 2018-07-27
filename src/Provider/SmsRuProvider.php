@@ -3,13 +3,13 @@
 namespace Yamilovs\Bundle\SmsBundle\Provider;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Yamilovs\Bundle\SmsBundle\Exception\SmsRuException;
 use Yamilovs\Bundle\SmsBundle\Sms\SmsInterface;
 
 class SmsRuProvider implements ProviderInterface
 {
-    const BASE_URI = 'https://sms.ru';
-    const SMS_SEND_URI = '/sms/send';
+    private const SMS_SEND_URI = 'https://sms.ru/sms/send';
 
     /**
      * @var string
@@ -27,10 +27,15 @@ class SmsRuProvider implements ProviderInterface
     private $test;
 
     /**
-     * @param string $apiId
-     *
-     * @return SmsRuProvider
+     * @var ClientInterface
      */
+    private $client;
+
+    public function __construct()
+    {
+        $this->setClient(new Client());
+    }
+
     public function setApiId(string $apiId): self
     {
         $this->apiId = $apiId;
@@ -38,11 +43,6 @@ class SmsRuProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param string $from
-     *
-     * @return SmsRuProvider
-     */
     public function setFrom(string $from): self
     {
         $this->from = $from;
@@ -50,11 +50,6 @@ class SmsRuProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param bool $test
-     *
-     * @return SmsRuProvider
-     */
     public function setTest(bool $test): self
     {
         $this->test = $test;
@@ -62,25 +57,31 @@ class SmsRuProvider implements ProviderInterface
         return $this;
     }
 
-    public function send(SmsInterface $sms)
+    public function setClient(ClientInterface $client): self
     {
-        $data = [
+        $this->client = $client;
+
+        return $this;
+    }
+
+    private function getPostData(SmsInterface $sms): array
+    {
+        return [
             'form_params' => [
                 'api_id' => $this->apiId,
                 'from' => $this->from,
                 'to' => $sms->getPhoneNumber(),
                 'msg' => $sms->getMessage(),
                 'time' => $sms->getDateTime()->getTimestamp(),
-            ]
+                'test' => (int)$this->test,
+            ],
         ];
+    }
 
-        if ($this->test) {
-            $data['form_params']['test'] = 1;
-        }
-
-        $client = new Client(['base_uri' => self::BASE_URI, 'timeout' => 10,]);
-        $response = $client->post(self::SMS_SEND_URI, $data);
-        $responseCode = (int) $response->getBody()->read(3);
+    public function send(SmsInterface $sms): bool
+    {
+        $response = $this->client->request('POST', self::SMS_SEND_URI, $this->getPostData($sms));
+        $responseCode = (int)$response->getBody()->read(3);
 
         if ($responseCode != 100) {
             throw new SmsRuException($responseCode);
