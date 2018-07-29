@@ -103,7 +103,7 @@ class SmsDiscountProvider implements ProviderInterface
 
         $client = new Client(['base_uri' => self::BASE_URI, 'timeout' => 10,]);
         $response = $client->post(self::SMS_SEND_URI, $data);
-        $responseData = explode($response->getBody()->getContents(), ';');
+        $responseData = explode(';', $response->getBody()->getContents());
 
         if ($responseData[0] != 'accepted') {
             throw new SmsDiscountException($responseData[1]);
