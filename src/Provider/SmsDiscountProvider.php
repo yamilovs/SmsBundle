@@ -9,7 +9,7 @@ use Yamilovs\Bundle\SmsBundle\Sms\SmsInterface;
 
 class SmsDiscountProvider implements ProviderInterface
 {
-    const SMS_SEND_URI = 'http://api.iqsms.ru/messages/v2/send/';
+    private const SMS_SEND_URI = 'http://api.iqsms.ru/messages/v2/send/';
 
     /**
      * @var string
