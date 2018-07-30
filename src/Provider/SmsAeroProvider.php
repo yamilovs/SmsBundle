@@ -3,13 +3,13 @@
 namespace Yamilovs\Bundle\SmsBundle\Provider;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Yamilovs\Bundle\SmsBundle\Exception\SmsAeroException;
 use Yamilovs\Bundle\SmsBundle\Sms\SmsInterface;
 
 class SmsAeroProvider implements ProviderInterface
 {
-    const BASE_URI = 'https://gate.smsaero.ru';
-    const SMS_SEND_URI = '/v2/sms/send';
+    private const SMS_SEND_URI = 'https://gate.smsaero.ru/v2/sms/send';
 
     /**
      * @var string
@@ -29,10 +29,15 @@ class SmsAeroProvider implements ProviderInterface
     private $channel;
 
     /**
-     * @param string $user
-     *
-     * @return SmsAeroProvider
+     * @var ClientInterface
      */
+    private $client;
+
+    public function __construct()
+    {
+        $this->setClient(new Client());
+    }
+
     public function setUser(string $user): self
     {
         $this->user = $user;
@@ -40,11 +45,6 @@ class SmsAeroProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param string $apiKey
-     *
-     * @return SmsAeroProvider
-     */
     public function setApiKey(string $apiKey): self
     {
         $this->apiKey = $apiKey;
@@ -52,11 +52,6 @@ class SmsAeroProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param string $sign
-     *
-     * @return SmsAeroProvider
-     */
     public function setSign(string $sign): self
     {
         $this->sign = $sign;
@@ -64,11 +59,6 @@ class SmsAeroProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param string $channel
-     *
-     * @return SmsAeroProvider
-     */
     public function setChannel(string $channel): self
     {
         $this->channel = $channel;
@@ -76,9 +66,16 @@ class SmsAeroProvider implements ProviderInterface
         return $this;
     }
 
-    public function send(SmsInterface $sms)
+    public function setClient(ClientInterface $client): self
     {
-        $data = [
+        $this->client = $client;
+
+        return $this;
+    }
+
+    private function getPostData(SmsInterface $sms): array
+    {
+        return [
             'headers' => [
                 'accept' => 'application/json'
             ],
@@ -94,9 +91,11 @@ class SmsAeroProvider implements ProviderInterface
                 'dateSend' => $sms->getDateTime()->getTimestamp(),
             ]
         ];
+    }
 
-        $client = new Client(['base_uri' => self::BASE_URI, 'timeout' => 10,]);
-        $response = $client->post(self::SMS_SEND_URI, $data);
+    public function send(SmsInterface $sms): bool
+    {
+        $response = $this->client->request('POST', self::SMS_SEND_URI, $this->getPostData($sms));
         $jsonResponse = json_decode($response->getBody()->getContents());
 
         if (!$jsonResponse->success === true) {
