@@ -3,13 +3,13 @@
 namespace Yamilovs\Bundle\SmsBundle\Provider;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 use Yamilovs\Bundle\SmsBundle\Exception\SmsDiscountException;
 use Yamilovs\Bundle\SmsBundle\Sms\SmsInterface;
 
 class SmsDiscountProvider implements ProviderInterface
 {
-    const BASE_URI = 'http://api.iqsms.ru';
-    const SMS_SEND_URI = '/messages/v2/send/';
+    const SMS_SEND_URI = 'http://api.iqsms.ru/messages/v2/send/';
 
     /**
      * @var string
@@ -32,10 +32,15 @@ class SmsDiscountProvider implements ProviderInterface
     private $flash;
 
     /**
-     * @param string $login
-     *
-     * @return SmsDiscountProvider
+     * @var ClientInterface
      */
+    private $client;
+
+    public function __construct()
+    {
+        $this->setClient(new Client());
+    }
+
     public function setLogin(string $login): self
     {
         $this->login = $login;
@@ -43,11 +48,6 @@ class SmsDiscountProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param string $password
-     *
-     * @return SmsDiscountProvider
-     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -55,11 +55,6 @@ class SmsDiscountProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param null|string $sender
-     *
-     * @return SmsDiscountProvider
-     */
     public function setSender(?string $sender): self
     {
         $this->sender = $sender;
@@ -67,11 +62,6 @@ class SmsDiscountProvider implements ProviderInterface
         return $this;
     }
 
-    /**
-     * @param bool $flash
-     *
-     * @return SmsDiscountProvider
-     */
     public function setFlash(bool $flash): self
     {
         $this->flash = $flash;
@@ -79,9 +69,16 @@ class SmsDiscountProvider implements ProviderInterface
         return $this;
     }
 
-    public function send(SmsInterface $sms)
+    public function setClient(ClientInterface $client): self
     {
-        $data = [
+        $this->client = $client;
+
+        return $this;
+    }
+
+    private function getPostData(SmsInterface $sms): array
+    {
+        $post = [
             'auth' => [
                 $this->login,
                 $this->password
@@ -94,15 +91,19 @@ class SmsDiscountProvider implements ProviderInterface
         ];
 
         if ($this->sender) {
-            $data['form_params']['sender'] = $this->sender;
+            $post['form_params']['sender'] = $this->sender;
         }
 
         if ($this->flash) {
-            $data['form_params']['flash'] = 1;
+            $post['form_params']['flash'] = 1;
         }
 
-        $client = new Client(['base_uri' => self::BASE_URI, 'timeout' => 10,]);
-        $response = $client->post(self::SMS_SEND_URI, $data);
+        return $post;
+    }
+
+    public function send(SmsInterface $sms)
+    {
+        $response = $this->client->request('POST', self::SMS_SEND_URI, $this->getPostData($sms));
         $responseData = explode(';', $response->getBody()->getContents());
 
         if ($responseData[0] != 'accepted') {
