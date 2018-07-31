@@ -1,6 +1,6 @@
 <?php
 
-namespace Yamilovs\Bundle\SmsBundle\Tests\Fixture;
+namespace Yamilovs\Bundle\SmsBundle\Tests\Fixture\Provider;
 
 use Yamilovs\Bundle\SmsBundle\Provider\ProviderInterface;
 use Yamilovs\Bundle\SmsBundle\Sms\SmsInterface;

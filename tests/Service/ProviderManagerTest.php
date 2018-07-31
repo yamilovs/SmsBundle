@@ -6,7 +6,7 @@ namespace Yamilovs\Bundle\SmsBundle\Tests\Service;
 
 use PHPUnit\Framework\TestCase;
 use Yamilovs\Bundle\SmsBundle\Service\ProviderManager;
-use Yamilovs\Bundle\SmsBundle\Tests\Fixture\ProviderFixture;
+use Yamilovs\Bundle\SmsBundle\Tests\Fixture\Provider\ProviderFixture;
 
 class ProviderManagerTest extends TestCase
 {

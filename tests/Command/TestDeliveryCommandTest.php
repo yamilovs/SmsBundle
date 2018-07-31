@@ -7,7 +7,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Yamilovs\Bundle\SmsBundle\Command\TestDeliveryCommand;
 use Yamilovs\Bundle\SmsBundle\Service\ProviderManager;
-use Yamilovs\Bundle\SmsBundle\Tests\Fixture\ProviderFixture;
+use Yamilovs\Bundle\SmsBundle\Tests\Fixture\Provider\ProviderFixture;
 
 class TestDeliveryCommandTest extends TestCase
 {
