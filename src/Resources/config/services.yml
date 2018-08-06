@@ -14,6 +14,9 @@ services:
     yamilovs_sms.prototype.provider.sms_center:
         class: Yamilovs\Bundle\SmsBundle\Provider\SmsCenterProvider
 
+    yamilovs_sms.prototype.provider.message_bird:
+        class: Yamilovs\Bundle\SmsBundle\Provider\MessageBirdProvider
+
     yamilovs_sms.provider.manager:
         class: Yamilovs\Bundle\SmsBundle\Service\ProviderManager
 
