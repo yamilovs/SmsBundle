@@ -14,6 +14,7 @@ $ composer require yamilovs/sms-bundle ^1.0
 
 You can define as many provider configurations as you want. Available providers are:
  
+ * [Message Bird](src/Resources/docs/providers/message_bird.md) [messagebird.com]
  * [Sms Ru](src/Resources/docs/providers/sms_ru.md) [sms.ru]
  * [Sms Aero](src/Resources/docs/providers/sms_aero.md) [smsaero.ru]
  * [Sms Discount](src/Resources/docs/providers/sms_discount.md) [iqsms.ru]
