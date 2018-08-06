@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Yamilovs\Bundle\SmsBundle\DependencyInjection\Compiler\ProviderCompilerPass;
 use Yamilovs\Bundle\SmsBundle\DependencyInjection\Factory\Provider\{
-    SmsAeroProviderFactory, SmsCenterProviderFactory, SmsDiscountProviderFactory, SmsRuProviderFactory
+    MessageBirdProviderFactory, SmsAeroProviderFactory, SmsCenterProviderFactory, SmsDiscountProviderFactory, SmsRuProviderFactory
 };
 use Yamilovs\Bundle\SmsBundle\DependencyInjection\SmsExtension;
 
@@ -22,6 +22,7 @@ class SmsBundle extends Bundle
     public function getContainerExtension()
     {
         $extension = new SmsExtension();
+        $extension->addProviderFactory(new MessageBirdProviderFactory());
         $extension->addProviderFactory(new SmsRuProviderFactory());
         $extension->addProviderFactory(new SmsAeroProviderFactory());
         $extension->addProviderFactory(new SmsDiscountProviderFactory());
