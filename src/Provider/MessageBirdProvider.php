@@ -88,7 +88,7 @@ class MessageBirdProvider implements ProviderInterface
         try {
             $this->client->request('POST', self::SMS_SEND_URI, $this->getPostData($sms));
         } catch (ClientException $e) {
-            $response = json_decode($e->getResponse()->getBody());
+            $response = json_decode($e->getResponse()->getBody()->getContents());
             $error = current($response->errors);
 
             throw new MessageBirdException($error->code, $error->description, $error->parameter);
