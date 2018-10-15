@@ -48,7 +48,7 @@ class SmsCenterProvider implements ProviderInterface
         return $this;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -82,9 +82,9 @@ class SmsCenterProvider implements ProviderInterface
         return sprintf('0%s', $dateTime->getTimestamp());
     }
 
-    private function getPassword(): string
+    private function getPassword(): ?string
     {
-        return mb_strtolower(md5($this->password));
+        return $this->password;
     }
 
     private function getPostData(SmsInterface $sms): array
