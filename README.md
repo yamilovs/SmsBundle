@@ -18,7 +18,7 @@ You can define as many provider configurations as you want. Available providers 
  * [Sms Ru](src/Resources/docs/providers/sms_ru.md) [sms.ru]
  * [Sms Aero](src/Resources/docs/providers/sms_aero.md) [smsaero.ru]
  * [Sms Discount](src/Resources/docs/providers/sms_discount.md) [iqsms.ru]
- * [Sms Center](src/Resources/docs/providers/sms_discount.md) [smsc.ru]
+ * [Sms Center](src/Resources/docs/providers/sms_center.md) [smsc.ru]
 
 # Usage
 
